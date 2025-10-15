@@ -7,12 +7,12 @@ const express_1 = __importDefault(require("express"));
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 require("dotenv/config");
 // Carga la conexion a la bbdd
-// import {connectDB} from './config/bd'
+const bd_1 = require("./config/bd");
 const cors_1 = __importDefault(require("cors"));
 const cors_2 = require("./config/cors");
 const helmet_1 = __importDefault(require("helmet"));
 const app = (0, express_1.default)();
-// connectDB();
+(0, bd_1.connectDB)();
 app.use((0, cors_1.default)(cors_2.corsConfig));
 app.use((0, helmet_1.default)());
 // Permite leer los datos que vienen de un formulario
