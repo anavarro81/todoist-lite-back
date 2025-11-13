@@ -7,8 +7,8 @@ import {connectDB} from './config/bd'
 import cors from 'cors';
 import {corsConfig} from './config/cors'
 import helmet from 'helmet';
-import ErrorMiddleware from './src/middleware/error.middleware'
-
+import ErrorMiddleware from './middleware/error.middleware'
+import logger from './utils/logger';
 const app = express()
 
 connectDB();
@@ -22,6 +22,7 @@ app.use(express.json())
 
 app.use('/', (req, res) => {
     res.send('Server is running...')
+    logger.info('server is running...')
 })
 
 

@@ -11,6 +11,8 @@ const bd_1 = require("./config/bd");
 const cors_1 = __importDefault(require("cors"));
 const cors_2 = require("./config/cors");
 const helmet_1 = __importDefault(require("helmet"));
+const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
+const logger_1 = __importDefault(require("./utils/logger"));
 const app = (0, express_1.default)();
 (0, bd_1.connectDB)();
 app.use((0, cors_1.default)(cors_2.corsConfig));
@@ -19,5 +21,7 @@ app.use((0, helmet_1.default)());
 app.use(express_1.default.json());
 app.use('/', (req, res) => {
     res.send('Server is running...');
+    logger_1.default.info('server is running...');
 });
+app.use(error_middleware_1.default);
 exports.default = app;
