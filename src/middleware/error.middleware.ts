@@ -4,10 +4,10 @@ const ErrorMiddleware = (error: any, req: Request, res: Response, next: NextFunc
 
     console.log(error)
 
-    let httpError = error || 500
-    let message   = error.message || "Se producido un error al realizar la petición"
+    let httpError = error.status || 500
+    let message   = error.message || "Se ha producido un error al realizar la petición"
 
-    res.status(httpError).json(message)
+    res.status(httpError).json({ error: message, type: error.name || "Error" })
 
 
 }

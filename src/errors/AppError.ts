@@ -33,8 +33,13 @@ class AppError extends Error {
         return new AppError(message, 409, "conflictError")
     }
 
+    static unexpected(message="error en la petición") {
+        return new AppError(message, 500, "unexpectedError")
+    }
+
 
 }
 
+export default AppError
 
 

@@ -1,5 +1,5 @@
 import express from 'express';
-
+import 'module-alias/register';
 // Carga las variables de entorno. Se pueden usar en todo el proyecto. 
 import 'dotenv/config'
 // Carga la conexion a la bbdd
@@ -9,6 +9,7 @@ import {corsConfig} from './config/cors'
 import helmet from 'helmet';
 import ErrorMiddleware from './middleware/error.middleware'
 import logger from './utils/logger';
+import tasksRouter from './routes/tasks.routes'
 const app = express()
 
 connectDB();
@@ -18,7 +19,7 @@ app.use(helmet())
 app.use(express.json())
 
 
-
+app.use('/tasks', tasksRouter)
 
 app.use('/', (req, res) => {
     res.send('Server is running...')
