@@ -40,6 +40,7 @@
   "_moduleAliases": {
     "@models": "dist/models",
     "@controllers": "dist/controllers",
-    "@services": "dist/services"
+    "@services": "dist/services",
+    "@routes": "dist/routes"
   }
 }

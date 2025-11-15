@@ -1,7 +1,7 @@
-import {LoginPayload} from '../types/LoginRegister'
+import {LoginPayload, RegisterPayload} from '../types/LoginRegister'
 import userModel from '@models/user.model'
 import AppError from '../errors/AppError'
-import {comparePassword} from '../utils/auth'
+import {comparePassword, hashPassword} from '../utils/auth'
 import logger from '../utils/logger'
 
 export const login = async(payload: LoginPayload) => {
@@ -30,5 +30,32 @@ export const login = async(payload: LoginPayload) => {
         logger.error(message)
         throw AppError.unexpected('Error en el login')
     }
+
+}
+
+export const register = async(payload: RegisterPayload) => {
+
+
+    try {
+
+        const {email, password} = payload
+
+        const hashedPassword = await hashPassword(password)
+
+        const user = await userModel.create({email, password: hashedPassword})
+
+        return user
+
+        
+    } catch (error) {
+
+        const message = error instanceof Error ? error.message : String(error)
+        logger.error(message)
+        throw AppError.unexpected('Error en el register')
+
+        
+    }
+
+
 
 }
