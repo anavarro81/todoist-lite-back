@@ -3,7 +3,7 @@ import AppError from "../errors/AppError"
 import logger from '../utils/logger'
 import taskModel from '@models/task.model'
 
-export const getAllTask = async () => {
+export const getUserTasks = async () => {
 
     try {
         return await taskModel.find({})

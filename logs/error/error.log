@@ -3,3 +3,4 @@
 {"level":"error","message":"Usuario o contraseña no válido","timestamp":"2025-11-15 15:11:43:1143"}
 {"level":"error","message":"Usuario o contraseña no válido","timestamp":"2025-11-15 15:13:59:1359"}
 {"level":"error","message":"Usuario o contraseña no válido","timestamp":"2025-11-15 15:15:34:1534"}
+{"level":"error","message":"No existe token; No autorizdo","timestamp":"2025-11-15 16:50:50:5050"}

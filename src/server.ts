@@ -8,6 +8,7 @@ import cors from 'cors';
 import {corsConfig} from './config/cors'
 import helmet from 'helmet';
 import ErrorMiddleware from './middleware/error.middleware'
+import authenticateToken from './middleware/authenticateToken.middleware'
 import logger from './utils/logger';
 import tasksRouter from './routes/tasks.routes'
 import authRouter from '@routes/auth.routes'
@@ -20,7 +21,7 @@ app.use(helmet())
 app.use(express.json())
 
 
-app.use('/tasks', tasksRouter)
+app.use('/tasks', authenticateToken, tasksRouter)
 app.use('/auth/', authRouter)
 
 app.use('/', (req, res) => {

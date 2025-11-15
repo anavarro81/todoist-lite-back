@@ -3,6 +3,7 @@ import userModel from '@models/user.model'
 import AppError from '../errors/AppError'
 import {comparePassword, hashPassword} from '../utils/auth'
 import logger from '../utils/logger'
+import {generateToken} from '../utils/auth'
 
 export const login = async(payload: LoginPayload) => {
 
@@ -22,7 +23,15 @@ export const login = async(payload: LoginPayload) => {
             throw AppError.unauthorized('Usuario o contraseña no válido')
         }
 
-        return user
+        const token = await generateToken(String(user._id), user.email)
+
+        return {
+            user: {
+                _id: user._id,
+                email: user.email
+            },
+            token
+        }
         
     } catch (error) {
         
@@ -44,7 +53,15 @@ export const register = async(payload: RegisterPayload) => {
 
         const user = await userModel.create({email, password: hashedPassword})
 
-        return user
+        const token = await generateToken(String(user._id), user.email)
+
+        return {
+            user: {
+                _id: user._id,
+                email: user.email
+            },
+            token
+        }
 
         
     } catch (error) {
