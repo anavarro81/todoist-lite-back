@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 
-export const hashPassword = async (password: string): Promise<String> => {
+export const hashPassword = async (password: string): Promise<string> => {
 
     const salt = await bcrypt.genSalt(10)
     return await bcrypt.hash(password, salt)
@@ -9,6 +9,6 @@ export const hashPassword = async (password: string): Promise<String> => {
 
 export const comparePassword = async (password: string, hashPassword: string) => {
 
-    return await bcrypt.compare(password,password )
+    return await bcrypt.compare(password,hashPassword)
 
 }

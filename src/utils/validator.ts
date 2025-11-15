@@ -6,17 +6,15 @@ export interface ValidationResult {
     errors: {field: string, message: string}[]
 }
 
-const registerSchema = Joi.object({
 
-})
 
-const loginSchema = Joi.object({
+const authSchema = Joi.object({
     
     email: Joi.string()
     .email()
     .required()
     .messages({
-        'string.mail': "eail no valido",
+        'string.mail': "email no valido",
         'string.empty': "email no puede estar vacio",
         'any.required': "email es obligatrio"
     }),
@@ -30,9 +28,11 @@ const loginSchema = Joi.object({
     })
 })
 
-export const validateLogin = (payload: LoginPayload):ValidationResult => {
 
-    const {error} = loginSchema.validate(payload, {abortEarly: false})
+
+export const validateAuth = (payload: LoginPayload):ValidationResult => {
+
+    const {error} = authSchema.validate(payload, {abortEarly: false})
 
     if (!error) {
         return {valid: true, errors: [] }
