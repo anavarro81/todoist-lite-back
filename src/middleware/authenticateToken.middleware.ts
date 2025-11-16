@@ -27,12 +27,12 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
             const token = req.headers.authorization?.split(' ')[1]
 
         if (!token) {
-            logger.error('No existe token; No autorizdo')
-            throw AppError.unauthorized('Usuario no autoizado')
+            logger.error('No existe token; No autoriado')
+            throw AppError.unauthorized('Usuario no autorizado')
         }
 
         const user = verify(token)
-        req.user= user
+        req.user = user
         next()
 
         

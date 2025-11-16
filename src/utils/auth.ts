@@ -20,13 +20,13 @@ export const comparePassword = async (password: string, hashPassword: string) =>
 
 }
 
-export const generateToken = async(id: string, email: string) => {
+export const generateToken =(id: string, email: string) => {
 
     const payload = {id, email}
 
     if (!process.env.JWT_KEY) {
         logger.error('JWT_KEY no existe')
-        throw AppError.forbiden('JWT_KEY no existe')
+        throw AppError.forbidden('JWT_KEY no existe')
     }
 
     return jwt.sign(payload, process.env.JWT_KEY, {expiresIn: "1h"})
@@ -37,7 +37,7 @@ export const verify = (token: string) => {
 
     if (!process.env.JWT_KEY) {
         logger.error('JWT_KEY no existe')
-        throw AppError.forbiden('JWT_KEY no existe')
+        throw AppError.forbidden('JWT_KEY no existe')
     }
 
 
@@ -47,7 +47,7 @@ export const verify = (token: string) => {
         
     } catch (err) {
         logger.error(`Error al verificar el token: `, err)
-        throw AppError.forbiden('Error al validar el token')
+        throw AppError.forbidden('Error al validar el token')
         
     }
 

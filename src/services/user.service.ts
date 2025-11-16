@@ -23,7 +23,7 @@ export const login = async(payload: LoginPayload) => {
             throw AppError.unauthorized('Usuario o contraseña no válido')
         }
 
-        const token = await generateToken(String(user._id), user.email)
+        const token = generateToken(String(user._id), user.email)
 
         return {
             user: {
@@ -53,7 +53,7 @@ export const register = async(payload: RegisterPayload) => {
 
         const user = await userModel.create({email, password: hashedPassword})
 
-        const token = await generateToken(String(user._id), user.email)
+        const token = generateToken(String(user._id), user.email)
 
         return {
             user: {
