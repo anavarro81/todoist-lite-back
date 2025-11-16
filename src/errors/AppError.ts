@@ -21,7 +21,7 @@ class AppError extends Error {
     }
     
     // El usuario está autenticado pero no puede realizar la operación (no tiene permiso)
-    static forbiden(message="Operacion no permitida") {
+    static forbidden(message="Operacion no permitida") {
         return new AppError(message, 403, "forbidenError")
     }
 

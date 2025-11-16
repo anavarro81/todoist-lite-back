@@ -2,14 +2,15 @@
  import { Request, Response, NextFunction } from "express"
 
 
-export const getAllTask = async(req: Request, res: Response, next: NextFunction) => {
+export const getUserTasks = async(req: Request, res: Response, next: NextFunction) => {
     
-    try {
-        
-        const tasks = await taskServices.getAllTask()
+    try {        
+        const {id} = req.user
+        const tasks = await taskServices.getUserTasks(id)
         res.status(200).json({tasks})
         
     } catch (error) {
         next(error)
     }
 }
+

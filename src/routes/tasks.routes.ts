@@ -1,9 +1,10 @@
 import express from "express";
-import {getAllTask} from "@controllers/task.controller"
+import {getUserTasks} from "@controllers/task.controller"
+import authenticateToken from '../middleware/authenticateToken.middleware'
 const tasksRouter = express.Router()
 
 
-tasksRouter.get('/', getAllTask)
+tasksRouter.get('/', authenticateToken, getUserTasks)
 
 
 export default tasksRouter

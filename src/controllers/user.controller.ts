@@ -53,13 +53,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
         const userRegister = await AuthServices.register(req.body)
 
-        res.status(200).json({userRegister})
-
-
-
+        res.status(201).json({userRegister})
 
         
     } catch (error) {
+        next(error)
         
     }
     

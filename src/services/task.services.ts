@@ -3,10 +3,11 @@ import AppError from "../errors/AppError"
 import logger from '../utils/logger'
 import taskModel from '@models/task.model'
 
-export const getAllTask = async () => {
+export const getUserTasks = async (id: string) => {
 
     try {
-        return await taskModel.find({})
+        
+        return await taskModel.find({user: id})
     } catch (error) {
        const errorMessage = error instanceof Error ? error.message : String(error)
        logger.error(errorMessage) 
