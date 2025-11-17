@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
-  "dev": "nodemon --exitcrash",
+    "dev": "nodemon",
     "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
-    "add-build": "git add dist"
+    "add-build": "git add dist",
+    "seed": "tsx ./src/seed/seed-task.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,19 +15,34 @@
   "type": "commonjs",
   "description": "",
   "dependencies": {
+    "@types/nodemailer": "^7.0.3",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "mongoose": "^8.19.1",
+    "joi": "^18.0.1",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "mongoose": "^8.19.3",
+    "nodemailer": "^7.0.10",
     "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "winston": "^3.18.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.14.1",
     "nodemon": "^3.1.9",
     "typescript": "^5.8.3"
+  },
+  "_moduleAliases": {
+    "@models": "dist/models",
+    "@controllers": "dist/controllers",
+    "@services": "dist/services",
+    "@routes": "dist/routes"
   }
 }

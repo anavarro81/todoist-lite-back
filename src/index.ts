@@ -1,5 +1,7 @@
 import express from 'express';
 import server from './server'
+import 'module-alias/register';
+
 
 const PORT = process.env.PORT || 3000
 

@@ -1,5 +1,10 @@
 import mongoose, { Schema }  from "mongoose";
 
+
+const repetitionSchema = new Schema({
+    
+})
+
 const taskSchema = new Schema({
     name: {type: String, required: true, maxlength: 50},
     description: {type: String, required: false, maxlength: 100},
