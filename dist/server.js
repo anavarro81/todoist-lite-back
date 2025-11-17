@@ -24,6 +24,7 @@ app.use((0, helmet_1.default)());
 app.use(express_1.default.json());
 app.use('/tasks', tasks_routes_1.default);
 app.use('/auth/', auth_routes_1.default);
+// app.use('/mail/', emailRouter)
 app.use('/', (req, res) => {
     res.send('Server is running...');
     logger_1.default.info('server is running...');

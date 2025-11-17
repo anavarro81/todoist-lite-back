@@ -37,6 +37,10 @@ class AppError extends Error {
         return new AppError(message, 500, "unexpectedError")
     }
 
+    static emailDeliveryError(message="Error al mandar el email") {
+        return new AppError(message, 503, "emailDeliveryError")
+    }
+
 
 }
 
