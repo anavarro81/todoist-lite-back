@@ -1,3 +1,4 @@
+
 import mongoose, { Schema }  from "mongoose";
 
 
@@ -11,11 +12,28 @@ const taskSchema = new Schema({
     created: {type: Date, default: Date.now},
     priority: {type: String, enum: ["priority 1", "priority 2", "priority 3", "priority 4"], default: "priority 4" },
     deadline: {type: Date, required: false },
+    dueTime: {type: Date},
+    
+    // TODO  Termina de definir el modelo para la repetición. Preguntar a GPT si los nombres son correctos. 
+    repeat: {
+       repeatType: {type: String, required: true, enum: ['none', 'weekday', 'weekend', 'custom'], default: 'none'},
+       custom: {
+            interval: {type: Number, min: 1},
+            unit: {type: String, enum: ['day', 'week', 'month', 'year']}
+       }
+        
+    },
+    
+    
     // relations
     user: {type: Schema.Types.ObjectId, ref: "User"},
-    label: [{type: Schema.Types.ObjectId, ref: "Label" }]
+    label: [{type: Schema.Types.ObjectId, ref: "Label" }],
+    project: {type: Schema.Types.ObjectId, ref: "Project"}
 
     
+}, 
+{
+    timestamps: true, // add createdAt y updatedAt
 })
 
 const taskModel = mongoose.model("Task", taskSchema)
