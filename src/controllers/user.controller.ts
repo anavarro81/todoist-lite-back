@@ -51,7 +51,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
             })
         }
 
+        
+
         const userRegister = await AuthServices.register(req.body)
+
+        
 
         res.status(201).json({userRegister})
 

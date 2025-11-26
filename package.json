@@ -43,6 +43,7 @@
     "@models": "dist/models",
     "@controllers": "dist/controllers",
     "@services": "dist/services",
-    "@routes": "dist/routes"
+    "@routes": "dist/routes",
+    "@types": "dist/types"
   }
 }

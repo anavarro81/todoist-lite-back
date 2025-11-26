@@ -2,9 +2,6 @@
 import mongoose, { Schema }  from "mongoose";
 
 
-const repetitionSchema = new Schema({
-    
-})
 
 const taskSchema = new Schema({
     name: {type: String, required: true, maxlength: 50},
@@ -28,7 +25,7 @@ const taskSchema = new Schema({
     // relations
     user: {type: Schema.Types.ObjectId, ref: "User"},
     label: [{type: Schema.Types.ObjectId, ref: "Label" }],
-    project: {type: Schema.Types.ObjectId, ref: "Project"}
+    project: {type: Schema.Types.ObjectId, ref: "Project" }
 
     
 }, 
