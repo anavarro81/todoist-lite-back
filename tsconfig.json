@@ -15,6 +15,7 @@
       "@controllers/*": ["controllers/*"],
       "@routes/*": ["routes/*"],
       "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"]
     }
   }
 }

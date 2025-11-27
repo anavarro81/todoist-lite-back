@@ -1,5 +1,6 @@
 import { Response, Request, NextFunction } from "express";
-import {validateAuth} from '../utils/validator'
+import {validateAuth} from '../utils/validators/auth.validator'
+
 import * as AuthServices from '@services/user.service'
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {       

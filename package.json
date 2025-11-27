@@ -44,6 +44,7 @@
     "@controllers": "dist/controllers",
     "@services": "dist/services",
     "@routes": "dist/routes",
-    "@types": "dist/types"
+    "@types": "dist/types",
+    "@utils": "dist/utils"
   }
 }

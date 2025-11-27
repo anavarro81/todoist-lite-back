@@ -1,19 +1,21 @@
 class AppError extends Error {
 
     public readonly status: number;
-    
-    constructor (message: string, status=500, type="AppError")  {
+    public readonly details?: any
+
+    constructor (message: string, status=500, type="AppError", details?: any)  {
 
         super(message)
         this.status=status
         this.name=type
+        this.details=details
         // Garantiza que instance AppError funcion como esperas. 
         Object.setPrototypeOf(this, new.target.prototype)
 
     }   
 
-    static badRequest(message="Datos de la petición no validos" ) {
-        return new AppError(message, 400, "badRequestError")
+    static badRequest(message="Datos de la petición no validos", details?: any ) {
+        return new AppError(message, 400, "badRequestError", details)
     }
 
     static unauthorized(message="Usuario no autenticado" ) {
