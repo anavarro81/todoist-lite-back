@@ -14,3 +14,15 @@ export const getUserTasks = async(req: Request, res: Response, next: NextFunctio
     }
 }
 
+export const newTask = async(req: Request, res: Response, next: NextFunction) => {
+    
+    try {               
+        
+        const newtask = await taskServices.newTask(req.body)
+        res.status(201).json({newtask})
+        
+    } catch (error) {
+        next(error)
+    }
+}
+

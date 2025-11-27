@@ -42,6 +42,31 @@ export const createDefaultProyect = async (userId:string | Types.ObjectId, servi
 
 }
 
+export const getDefaultProject = async (userId:string | Types.ObjectId): Promise<Types.ObjectId> => {
+
+    try {
+
+        if (!userId) {
+            logger.error('userID no informado')
+            throw AppError.unexpected('userID no informado') 
+        }
+        
+        const defaultProyect = await projectModel.findOne({user: userId, isDefault: true })
+
+        if (!defaultProyect) {
+            logger.error('No existe proyecto por defecto para el usuario')
+            throw AppError.unexpected('No existe proyecto por defecto para el usuario')                        
+        }
+
+        return defaultProyect.id
+        
+    } catch (error) {
+        logger.error('Error al recuperar el proyecto por defecto ', error)
+        throw AppError.unexpected('Error al recuperar el proyecto por defecto')        
+    }
+
+}
+
 
 
 

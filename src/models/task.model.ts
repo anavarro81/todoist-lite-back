@@ -23,9 +23,10 @@ const taskSchema = new Schema({
     
     
     // relations
-    user: {type: Schema.Types.ObjectId, ref: "User"},
+    user: {type: Schema.Types.ObjectId, ref: "User", required: true },
     label: [{type: Schema.Types.ObjectId, ref: "Label" }],
-    project: {type: Schema.Types.ObjectId, ref: "Project" }
+    project: {type: Schema.Types.ObjectId, ref: "Project" },
+    parentTask: {type: Schema.Types.ObjectId, ref: "Task", index: true },
 
     
 }, 
