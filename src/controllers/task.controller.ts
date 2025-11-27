@@ -20,7 +20,18 @@ export const newTask = async(req: Request, res: Response, next: NextFunction) =>
     
     try {        
         
-        const result = validateTask(req.body)
+        const {id} = req.user
+
+        
+
+        if (!id) {
+            logger.error('id de usuario no informado')
+            AppError.badRequest('id de usuario no informado')
+        }       
+
+        
+        
+        const result = validateTask({...req.body, user: id})
 
         if (!result.valid) {
             logger.error('Datos de la tarea no validos ', result.errors)
@@ -28,7 +39,7 @@ export const newTask = async(req: Request, res: Response, next: NextFunction) =>
             throw AppError.badRequest("Error en los datos de la tarea", result.errors)
         }
         
-        const newtask = await taskServices.newTask(req.body)
+        const newtask = await taskServices.newTask({...req.body, user: id})
         res.status(201).json({newtask})
         
     } catch (error) {

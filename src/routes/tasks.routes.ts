@@ -5,7 +5,7 @@ const tasksRouter = express.Router()
 
 
 tasksRouter.get('/', authenticateToken, getUserTasks)
-tasksRouter.post('/', newTask)
+tasksRouter.post('/', authenticateToken, newTask)
 
 
 export default tasksRouter
