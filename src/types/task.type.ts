@@ -1,10 +1,16 @@
+import { Document, Types } from "mongoose"
 
-interface iTask {
+export interface iTask {
     name: string,
-    decription?: string,
-    created?: Date,
-    priority?: string,
-    deadline?: Date, 
-    user: string,
-    label?: string
+    decription?: string | null
+    created?: Date
+    priority?: string | null
+    deadline?: Date | null 
+    dueTime?: Date | null
+    user: Types.ObjectId | string
+    label?: Types.ObjectId[] | null
+    project?: Types.ObjectId | null
+    parentTask?: Types.ObjectId | null
 }
+
+export type TaskDocument = iTask & Document

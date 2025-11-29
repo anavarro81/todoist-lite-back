@@ -1,5 +1,6 @@
 import {LoginPayload, RegisterPayload} from '../types/LoginRegister'
 import userModel from '@models/user.model'
+import {createDefaultProyect} from '@services/project.service'
 import AppError from '../errors/AppError'
 import {comparePassword, hashPassword} from '../utils/auth'
 import logger from '../utils/logger'
@@ -54,6 +55,14 @@ export const register = async(payload: RegisterPayload) => {
         const user = await userModel.create({email, password: hashedPassword})
 
         const token = generateToken(String(user._id), user.email)
+
+        // Alta del proyecto por defecto para el usuario
+        const proyect = await createDefaultProyect(user._id)
+
+        if (!proyect) {
+            logger.error('Error al crear el proyecto')
+            throw AppError.unexpected('Error crear el proyecto')
+        }
 
         return {
             user: {

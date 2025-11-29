@@ -1,11 +1,6 @@
 import Joi from "joi";
-import {LoginPayload} from '../types/LoginRegister'
-
-export interface ValidationResult {
-    valid: boolean;
-    errors: {field: string, message: string}[]
-}
-
+import {LoginPayload} from '../../types/LoginRegister'
+import {formatError, ValidationResult} from './formater'
 
 
 const authSchema = Joi.object({
@@ -34,19 +29,6 @@ export const validateAuth = (payload: LoginPayload):ValidationResult => {
 
     const {error} = authSchema.validate(payload, {abortEarly: false})
 
-    if (!error) {
-        return {valid: true, errors: [] }
-    }
-
-    const errors = error.details.map(detail => ({
-        field: detail.context?.key || "unknown",
-        message: detail.message
-    }))
-
-    return {
-        valid: false,
-        errors: errors
-    }
-
+    return formatError(error)
 
 }
