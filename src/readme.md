@@ -16,6 +16,12 @@ En el alta de tarea se comprueba si llega o no informado un proyecto. Si no lleg
 
 Se crea un formateador para convertir los errores devueltos por el validador de Joi en formato ValidationResult
 
+## label.model.ts
+
+- Se agrega la relacion con el usario como indice y obligatoria. 
+- Se crea la constante de colores permitidos (cogiendo los de Todoist)
+
+
 
 ## Validaciones
 

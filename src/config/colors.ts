@@ -1,0 +1,22 @@
+export const LABEL_COLOR = [
+  "Berry Red",
+  "Red",
+  "Orange",
+  "Yellow",
+  "Olive Green",
+  "Lime Green",
+  "Green",
+  "Mint Green",
+  "Teal",
+  "Sky Blue",
+  "Light Blue",
+  "Blue",
+  "Grape",
+  "Violet",
+  "Lavender",
+  "Magenta",
+  "Salmon",
+  "Charcoal",
+  "Grey",
+  "Taupe"
+];
