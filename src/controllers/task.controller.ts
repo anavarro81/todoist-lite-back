@@ -47,3 +47,21 @@ export const newTask = async(req: Request, res: Response, next: NextFunction) =>
     }
 }
 
+export const searchTask = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const {search} = req.query
+
+        if (typeof search !== 'string' || !search.trim()) {
+            throw AppError.badRequest("cadena de búsqueda vacia")
+        }
+
+        const tasks = await taskServices.searchTask(search as string)
+        res.status(200).json({tasks})
+
+    } catch (error) {
+        next(error)
+        
+    }
+}
+

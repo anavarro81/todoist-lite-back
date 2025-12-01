@@ -48,3 +48,35 @@ export const newTask = async(task: iTask): Promise<TaskDocument> => {
     }
 
 }
+
+/**
+ * Busca lo introducido en el nombre o la descripción de la tarea
+ * @param searchString cadena a buscar | puede ser una o varias palabras
+ * @returns Array con la tareas cuyo nombre o descripción coincide con la busqueda. 
+ */
+
+export const searchTask = async(searchString: string): Promise<TaskDocument[]>  => {
+
+    try {
+
+
+        if (!searchString) {
+            logger.warn('search string vacia')
+            return []
+        }
+
+        return await taskModel.find({
+            $or: [
+            { name: { $regex: searchString, $options: "i" } },
+            { description: { $regex: searchString, $options: "i" } }
+            ]
+        })
+        
+    } catch (error) {
+       const errorMessage = error instanceof Error ? error.message : String(error)
+       logger.error(errorMessage) 
+       throw AppError.unexpected('error al crear la tarea')
+        
+    }
+
+}
