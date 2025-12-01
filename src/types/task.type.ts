@@ -13,4 +13,12 @@ export interface iTask {
     parentTask?: Types.ObjectId | null
 }
 
+export interface TaskSearchDto {
+    id: Types.ObjectId
+    name: string
+    decription?: string | null
+    project?: Types.ObjectId | null
+
+}
+
 export type TaskDocument = iTask & Document
