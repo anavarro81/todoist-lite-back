@@ -1,7 +1,7 @@
 import AppError from "../errors/AppError"
 import logger from '../utils/logger'
 import taskModel from '@models/task.model'
-import {iTask, TaskDocument} from 'types/task.type'
+import {TaskSearchDto, TaskDocument, iTask} from 'types/task.type'
 import {getDefaultProject} from '@services/project.service'
 import {Types, Document} from "mongoose"
 
@@ -57,7 +57,7 @@ export const newTask = async(task: iTask): Promise<TaskDocument> => {
  * @returns Array con la tareas cuyo nombre o descripción coincide con la busqueda. 
  */
 
-export const searchTask = async(searchString: string, id: Types.ObjectId | string): Promise<TaskDocument[]>  => {
+export const searchTask = async(searchString: string, id: Types.ObjectId | string): Promise<TaskSearchDto[]>  => {
 
     try {
 
@@ -67,9 +67,8 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
             return []
         }
 
-        console.log('id del usuario = ', id)
 
-        return await taskModel.find({
+        const tasks = await taskModel.find({
             $and: [
                 {
                     $or: [
@@ -80,6 +79,15 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
                 { user: id }
             ]
         })
+
+        const filteredTask = tasks.map(t => ({
+            id: t._id,
+            name: t.name,
+            description: t.description,
+            project: t.project,
+        }))
+
+        return filteredTask
         
     } catch (error) {
        const errorMessage = error instanceof Error ? error.message : String(error)
