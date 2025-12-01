@@ -3,6 +3,8 @@ import logger from '../utils/logger'
 import taskModel from '@models/task.model'
 import {iTask, TaskDocument} from 'types/task.type'
 import {getDefaultProject} from '@services/project.service'
+import {Types, Document} from "mongoose"
+
 
 export const getUserTasks = async (id: string): Promise<TaskDocument[]> => {
 
@@ -55,7 +57,7 @@ export const newTask = async(task: iTask): Promise<TaskDocument> => {
  * @returns Array con la tareas cuyo nombre o descripción coincide con la busqueda. 
  */
 
-export const searchTask = async(searchString: string): Promise<TaskDocument[]>  => {
+export const searchTask = async(searchString: string, id: Types.ObjectId | string): Promise<TaskDocument[]>  => {
 
     try {
 
@@ -65,10 +67,17 @@ export const searchTask = async(searchString: string): Promise<TaskDocument[]>  
             return []
         }
 
+        console.log('id del usuario = ', id)
+
         return await taskModel.find({
-            $or: [
-            { name: { $regex: searchString, $options: "i" } },
-            { description: { $regex: searchString, $options: "i" } }
+            $and: [
+                {
+                    $or: [
+                        { name: { $regex: searchString, $options: "i" } },
+                        { description: { $regex: searchString, $options: "i" } }
+                    ]
+                },
+                { user: id }
             ]
         })
         

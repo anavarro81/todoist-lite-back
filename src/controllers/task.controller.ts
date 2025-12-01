@@ -52,11 +52,13 @@ export const searchTask = async(req: Request, res: Response, next: NextFunction)
 
         const {search} = req.query
 
+        const {id} = req.user
+
         if (typeof search !== 'string' || !search.trim()) {
             throw AppError.badRequest("cadena de búsqueda vacia")
         }
 
-        const tasks = await taskServices.searchTask(search as string)
+        const tasks = await taskServices.searchTask(search, id)
         res.status(200).json({tasks})
 
     } catch (error) {
