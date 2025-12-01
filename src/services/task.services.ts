@@ -1,12 +1,12 @@
 import AppError from "../errors/AppError"
 import logger from '../utils/logger'
 import taskModel from '@models/task.model'
-import {TaskSearchDto, TaskDocument, iTask} from 'types/task.type'
+import {TaskSearchDto, TaskDocument, iTask, UserTaskResponseDto} from 'types/task.type'
 import {getDefaultProject} from '@services/project.service'
 import {Types, Document} from "mongoose"
 
 
-export const getUserTasks = async (id: string): Promise<TaskDocument[]> => {
+export const getUserTasks = async (id: string): Promise<UserTaskResponseDto> => {
 
     try {
 
@@ -15,7 +15,17 @@ export const getUserTasks = async (id: string): Promise<TaskDocument[]> => {
             throw AppError.badRequest('id de usuario no informado')
         }
         
-        return await taskModel.find({user: id})
+        const tasks = await taskModel.find({user: id}, 
+            {
+                name: 1, 
+                decription: 1,    
+                dueTime: 1
+            }
+
+        )
+
+        return {tasks, taskCounter: tasks.length}
+
     } catch (error) {
        const errorMessage = error instanceof Error ? error.message : String(error)
        logger.error(errorMessage) 
@@ -23,6 +33,7 @@ export const getUserTasks = async (id: string): Promise<TaskDocument[]> => {
     }
     
 }
+
 
 
 /**

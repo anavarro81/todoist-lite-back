@@ -21,4 +21,16 @@ export interface TaskSearchDto {
 
 }
 
+export interface UserTaskItemDto {
+    _id: Types.ObjectId;
+    name: string;
+    description?: string | null;
+    dueTime?: Date | null;
+}
+
+export interface UserTaskResponseDto {
+    tasks: UserTaskItemDto[];
+    taskCounter: number
+}
+
 export type TaskDocument = iTask & Document
