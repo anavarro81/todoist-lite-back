@@ -69,7 +69,14 @@ const taskSchema = Joi.object({
         'string.pattern.base': 'Id de usuario no válido',
         'any.required': 'id de usuario obligatorio',
         'string.empty': 'El id debe debe de estar informado'
-    })
+    }),
+
+    dueTime: Joi.date()
+    .optional()
+    .messages({
+    'date.base': 'Formato de la fecha no valido'
+    }),
+
 
 
 

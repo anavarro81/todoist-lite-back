@@ -40,3 +40,6 @@
 {"level":"error","message":"Email no encontrado","timestamp":"2025-12-01 19:45:29:4529"}
 {"level":"error","message":"Email no encontrado","timestamp":"2025-12-01 19:45:36:4536"}
 {"level":"error","message":"Email no encontrado","timestamp":"2025-12-01 19:45:57:4557"}
+{"0":{"field":"dueTime","message":"\"dueTime\" is not allowed"},"level":"error","message":"Datos de la tarea no validos ","timestamp":"2025-12-02 09:51:25:5125"}
+{"0":{"field":"dueTime","message":"\"dueTime\" is not allowed"},"level":"error","message":"Datos de la tarea no validos ","timestamp":"2025-12-02 09:51:41:5141"}
+{"0":{"field":"dueTime","message":"\"dueTime\" is not allowed"},"level":"error","message":"Datos de la tarea no validos ","timestamp":"2025-12-02 09:51:56:5156"}

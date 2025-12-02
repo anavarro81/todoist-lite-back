@@ -67,3 +67,22 @@ export const searchTask = async(req: Request, res: Response, next: NextFunction)
     }
 }
 
+export const getDayTask = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const {id} = req.user
+
+        if (!id){
+            logger.warn('user id no informado')
+            throw AppError.badRequest("user id no informado")
+        }
+
+        const tasks = await taskServices.getDayTask(id)
+        res.status(200).json({tasks})
+
+    } catch (error) {
+        next(error)
+        
+    }
+}
+
