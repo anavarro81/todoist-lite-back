@@ -26,10 +26,28 @@ export interface UserTaskItemDto {
     name: string;
     description?: string | null;
     dueTime?: Date | null;
+    label?: Types.ObjectId[] | null
 }
 
 export interface UserTaskResponseDto {
     tasks: UserTaskItemDto[];
+    taskCounter: number
+}
+
+// Today Taks
+
+export interface UserDayTaskItemDto {
+    _id: Types.ObjectId;
+    name: string;
+    dueTime?: Date | null;
+    description?: string | null;    
+    label?: Types.ObjectId[] | null
+    project?: Types.ObjectId | null;
+}
+
+export interface UserDayTasksResponseDto {
+    overdue: UserDayTaskItemDto[];
+    todayTasks: UserDayTaskItemDto[];
     taskCounter: number
 }
 

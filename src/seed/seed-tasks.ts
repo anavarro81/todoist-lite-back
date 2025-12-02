@@ -13,7 +13,7 @@ const load = async ()  => {
         await resetDatabase()
 
         const insertedTasks = await taskModel.insertMany(tasks)
-        // console.log({insertedTasks})
+        
         
     } catch (error) {
         console.error ('error seedin data ', error)
