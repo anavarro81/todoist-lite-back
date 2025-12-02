@@ -6,14 +6,56 @@ import {TaskSearchDto,
         iTask, 
         UserTaskResponseDto, 
         UserDayTasksResponseDto,
-        UserDayTaskItemDto
+        UserDayTaskItemDto,
+        UserUpcomingTaskResponseDto
         } 
         from 'types/task.type'
+import {groupTaskByDate} from '@utils/helper'       
 import {getDefaultProject} from '@services/project.service'
-import {Types, Document} from "mongoose"
+import {Types} from "mongoose"
+
+/**
+ * Devuelve las tareas del usuario agrupadas: overdue, today, upcoming del usuario. 
+ * @param id del usuario para el cual se obtendran las tareas. 
+ * @returns Devuelve las tareas agrupadas: overdue, today, upcoming 
+ */
+
+const MAX_STRING_SEARCH: number = 200;
+
+export const getUpcomingTasks = async(id: Types.ObjectId | string): Promise<UserUpcomingTaskResponseDto> => {
+
+    try {
+
+     if(!id) {
+        logger.error('id del usuario no informado')      
+        throw AppError.badRequest('id del usuario no informado')     
+    }   
+    
+        const tasks = await taskModel.find({dueTime: { $exists: true },  user: id }) 
+
+        const {overdueTask, todayTask, upcomingTask} = groupTaskByDate(tasks)
+
+        return {
+            overdue: overdueTask,
+            todayTasks: todayTask,
+            upcomingTask: upcomingTask
+        }
+
+        
+
+        
+    } catch (error) {
+       const errorMessage = error instanceof Error ? error.message : String(error)
+       logger.error(errorMessage) 
+       throw AppError.unexpected('Error al obtener las upcoming tasks')
+
+        
+    }
+
+}
 
 
-export const getUserTasks = async (id: string): Promise<UserTaskResponseDto> => {
+export const getUserTasks = async (id: Types.ObjectId | string): Promise<UserTaskResponseDto> => {
 
     try {
 
@@ -54,6 +96,13 @@ export const newTask = async(task: iTask): Promise<TaskDocument> => {
     try {
 
         if (!task.project) {
+
+            if (!task.user) {
+                logger.error('usuario no informado')
+                AppError.badRequest('usuario no informado')
+
+            }
+
             const defaultProjectId = await getDefaultProject(task.user)
             task.project = defaultProjectId
         }
@@ -79,9 +128,9 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
 
     try {
 
-
-        if (!searchString) {
-            logger.warn('search string vacia')
+         // Evistar ataques ReDoS (Regular Expression Denial of Service)   
+        if (typeof searchString !== 'string' || !searchString.trim() || searchString.length > MAX_STRING_SEARCH ) {
+            logger.warn('search string vacia o no valida')
             return []
         }
 
@@ -102,7 +151,7 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
                 },
                 { user: id }
             ]
-        })
+        }).lean()
 
         const filteredTask = tasks.map(t => ({
             id: t._id,
@@ -144,7 +193,7 @@ export const getDayTask = async(id: Types.ObjectId | string):Promise<UserDayTask
         }
 
         const tasks = await taskModel.find(
-            { user: id, dueTime: {$lt: endofday} },
+            { user: id, dueTime: {$lte: endofday} },
             {
                 name: 1,
                 dueTime: 1, 
@@ -153,7 +202,7 @@ export const getDayTask = async(id: Types.ObjectId | string):Promise<UserDayTask
                 project: 1
                 
             }
-        )
+        ).lean()
 
         let overdueTask: UserDayTaskItemDto[] = []
         let todayTask: UserDayTaskItemDto[]  = []
@@ -184,3 +233,5 @@ export const getDayTask = async(id: Types.ObjectId | string):Promise<UserDayTask
     }
 
 }
+
+

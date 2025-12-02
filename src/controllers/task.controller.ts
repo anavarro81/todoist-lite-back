@@ -4,6 +4,9 @@ import {validateTask} from '../utils/validators/task.validator'
 import logger from "@utils/logger"
 import AppError from "../errors/AppError"
 
+
+
+
 export const getUserTasks = async(req: Request, res: Response, next: NextFunction) => {
     
     try {        
@@ -78,6 +81,25 @@ export const getDayTask = async(req: Request, res: Response, next: NextFunction)
         }
 
         const tasks = await taskServices.getDayTask(id)
+        res.status(200).json({tasks})
+
+    } catch (error) {
+        next(error)
+        
+    }
+}
+
+export const getUpcomingTask = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+
+        const {id} = req.user
+
+        if (!id){
+            logger.warn('user id no informado')
+            throw AppError.badRequest("user id no informado")
+        }
+
+        const tasks = await taskServices.getUpcomingTasks(id)
         res.status(200).json({tasks})
 
     } catch (error) {
