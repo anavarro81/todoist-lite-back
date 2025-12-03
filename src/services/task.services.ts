@@ -134,11 +134,17 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
             return []
         }
 
-        // Escapara caracteres especiales por seguridad. 
-        const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        const escaped = escapeRegex(searchString)
-        const regex = new RegExp(escaped, 'i')
+        // Buscar por todas las palabras que contenga searchString sin importar el orden. 
 
+        // 1. Si contiene caracteres especiales, los escapa añadiendo una barra '\' delante. Es para evitar ataques 
+        const escapeRegex = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        
+        // 2. Genera un array de palabras limpias, separadas por espacios y seguras para usar en una regex.
+        const tokens = searchString.trim().split(/\s+/).map(escapeRegex)
+        
+        const pattern = tokens.map(t => `(?=.*\\b${t}\\b)`).join('') + '.*'
+        const regex = new RegExp(pattern, 'i')
+        
 
 
         const tasks = await taskModel.find({
@@ -152,6 +158,7 @@ export const searchTask = async(searchString: string, id: Types.ObjectId | strin
                 { user: id }
             ]
         }).lean()
+
 
         const filteredTask = tasks.map(t => ({
             id: t._id,
