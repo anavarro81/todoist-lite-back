@@ -5,6 +5,7 @@ export const connectDB = async () => {
 
     try {
 
+
         if (!process.env.BD_URI) {
             console.error('Cadena de conexion no definida')
             process.exit(1)

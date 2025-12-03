@@ -51,4 +51,29 @@ export interface UserDayTasksResponseDto {
     taskCounter: number
 }
 
+// Upcoming Taks
+
+export interface UserUpcomingTaskItemDto {
+    _id: Types.ObjectId;
+    name: string;
+    dueTime?: Date | null;
+    description?: string | null;    
+    label?: Types.ObjectId[] | null
+    project?: Types.ObjectId | null;
+}
+
+export interface listTasks {
+	date: string  // formato: dia + mes(3) * Today * Dia de la semana
+	tasks:UserUpcomingTaskItemDto []
+}
+
+export interface UserUpcomingTaskResponseDto {
+    overdue: UserUpcomingTaskItemDto[];
+    todayTasks: listTasks[];
+    upcomingTask: listTasks[];    
+}
+
+
+
+
 export type TaskDocument = iTask & Document
