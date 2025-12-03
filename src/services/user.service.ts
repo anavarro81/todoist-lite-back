@@ -36,6 +36,12 @@ export const login = async(payload: LoginPayload) => {
         
     } catch (error) {
         
+        // Si es error controlado (AppError) → se relanza
+        if (error instanceof AppError) {
+            throw error;  
+        }
+
+        
         const message = error instanceof Error ? error.message : String(error)
         logger.error(message)
         throw AppError.unexpected('Error en el login')
@@ -48,9 +54,22 @@ export const register = async(payload: RegisterPayload) => {
 
     try {
 
-        const {email, password} = payload
+        const {email, password} = payload      
+
+
+        const existingUser = await userModel.find({email: email})
+
+        console.log('email ', email)
+        console.log('existingUser ', existingUser)
+
+
+        if (existingUser.length > 0) {
+            logger.warn('email registrado')
+            throw AppError.badRequest('No se pudo completar el registro')
+        }
 
         const hashedPassword = await hashPassword(password)
+
 
         const user = await userModel.create({email, password: hashedPassword})
 
@@ -75,7 +94,12 @@ export const register = async(payload: RegisterPayload) => {
         
     } catch (error) {
 
-        const message = error instanceof Error ? error.message : String(error)
+        // Si es error controlado (AppError) → se relanza
+        if (error instanceof AppError) {
+            throw error;  
+        }
+
+        const message = error instanceof Error ? error.message : String(error)        
         logger.error(message)
         throw AppError.unexpected('Error en el register')
 

@@ -1,8 +1,14 @@
 import mongoose from "mongoose";
+import 'dotenv/config'
+import {connectDB} from '../config/bd'
+
+console.log('datos ', process.env.BD_URI)
 
 export const resetDatabase = async () => {
 
     try {
+
+        await connectDB()
 
         const collections = await mongoose.connection.db?.collections()
 
@@ -23,6 +29,7 @@ export const resetDatabase = async () => {
 resetDatabase()
 .then( () => {
     console.log('💚 database succesfully deleted');
+    process.exit(1)
     
 })
 .catch((error) => {
