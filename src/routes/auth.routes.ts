@@ -1,10 +1,9 @@
 import express from "express";
-import {login, register} from "@controllers/user.controller"
-const authRouter = express.Router()
+import { login, register, googleOath } from "@controllers/user.controller";
+const authRouter = express.Router();
 
+authRouter.post("/login", login);
+authRouter.post("/register", register);
+authRouter.post("/google-OAuth", googleOath);
 
-authRouter.post('/login', login)
-authRouter.post('/register', register)
-
-
-export default authRouter
+export default authRouter;
