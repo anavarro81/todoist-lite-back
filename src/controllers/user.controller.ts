@@ -7,7 +7,7 @@ export const login = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
@@ -18,6 +18,7 @@ export const login = async (
         message: "Datos del rgistro no validos",
         errors: validUser.errors,
       });
+       return; 
     }
 
     const userLogged = await AuthServices.login(req.body);
@@ -32,7 +33,7 @@ export const register = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
@@ -43,6 +44,7 @@ export const register = async (
         message: "Datos del registro no validos",
         errors: validRegister.errors,
       });
+      return;
     }
 
     const userRegister = await AuthServices.register(req.body);
