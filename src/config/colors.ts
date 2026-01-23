@@ -1,4 +1,4 @@
-export const LABEL_COLOR = [
+export const TAG_COLOR = [
   "Berry Red",
   "Red",
   "Orange",
