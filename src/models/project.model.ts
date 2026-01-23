@@ -4,7 +4,7 @@ import { isDataView } from "util/types";
 const projectSchema = new Schema({
     name: {type: String, required: true, maxlength: 20},
     color: {type: String,  maxlength: 20},
-    projectParent: {type: String,  maxlength: 20},
+    projectParent: {type: Schema.Types.ObjectId, ref: "Project"  },
     favourite: {type: Boolean,  default: false},
     layout: {type: String,  enum: ["List", "Board", "Calendar"], default: "List"},
     

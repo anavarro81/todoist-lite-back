@@ -6,7 +6,7 @@ import * as AuthServices from "@services/user.service";
 export const login = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { email, password } = req.body;
@@ -31,7 +31,7 @@ export const login = async (
 export const register = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { email, password } = req.body;
@@ -56,7 +56,7 @@ export const register = async (
 export const googleOath = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const { googleToken } = req.body;

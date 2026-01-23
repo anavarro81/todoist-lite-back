@@ -29,10 +29,19 @@ const taskSchema = new Schema({
     parentTask: {type: Schema.Types.ObjectId, ref: "Task", index: true },
 
     
+
+
+
+
+    
 }, 
 {
     timestamps: true, // add createdAt y updatedAt
 })
+    // indices 
+    taskSchema.index({label: 1})            // Taras por etiqueta
+    taskSchema.index({user: 1})            //  Tareas por usuario
+
 
 const taskModel = mongoose.model("Task", taskSchema)
 
