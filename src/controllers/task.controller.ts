@@ -37,8 +37,7 @@ export const newTask = async(req: Request, res: Response, next: NextFunction) =>
         const result = validateTask({...req.body, user: id})
 
         if (!result.valid) {
-            logger.error('Datos de la tarea no validos ', result.errors)
-            console.log('error ', result.errors)
+            logger.error('Datos de la tarea no validos ', result.errors)            
             throw AppError.badRequest("Error en los datos de la tarea", result.errors)
         }
         

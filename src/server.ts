@@ -11,6 +11,7 @@ import ErrorMiddleware from "./middleware/error.middleware";
 import logger from "./utils/logger";
 import tasksRouter from "./routes/tasks.routes";
 import authRouter from "@routes/auth.routes";
+import tagRouter from '@routes/tag.routes'
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use("/tasks", tasksRouter);
 app.use("/auth/", authRouter);
+app.use("/tags", tagRouter)
 
 app.use("/", (req, res) => {
   res.send("Server is running...");

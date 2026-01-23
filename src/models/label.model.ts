@@ -1,19 +1,25 @@
-import mongoose, {Schema} from "mongoose";
-import {LABEL_COLOR} from '../config/colors'
+import mongoose, { Schema } from "mongoose";
+import { TAG_COLOR } from "../config/colors";
 
-const labelSchema = new Schema({
-    name: {type: String, required: true, maxlength: 60},
-    color: {type: String, required: false, enum: LABEL_COLOR},
-    isfavorite: {type: Boolean, default: false},
-    
+const tagSchema = new Schema(
+  {
+    name: { type: String, required: true, maxlength: 60 },
+    color: { type: String, required: false, enum: TAG_COLOR },
+    isfavorite: { type: Boolean, default: false },
+
     // Relations
-    userId: {type: Schema.Types.ObjectId, ref: "User", index: true, required: true}    
-},
-{
-    timestamps: true
-}
-)
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      index: true,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-const labelModel = mongoose.model('Label', labelSchema)
+const tagModel = mongoose.model("Tag", tagSchema);
 
-export default labelModel
+export default tagModel;

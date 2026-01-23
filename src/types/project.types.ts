@@ -4,7 +4,7 @@ export interface IProject {
 
     name: string
     color?: string | null
-    projectParent?: string  | null
+    projectParent?: Types.ObjectId  | null
     favourite?: boolean
     layout?: string 
     isDefault?: boolean
