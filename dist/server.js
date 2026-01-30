@@ -17,6 +17,7 @@ const logger_1 = __importDefault(require("./utils/logger"));
 const tasks_routes_1 = __importDefault(require("./routes/tasks.routes"));
 const auth_routes_1 = __importDefault(require("@routes/auth.routes"));
 const tag_routes_1 = __importDefault(require("@routes/tag.routes"));
+const user_routes_1 = __importDefault(require("@routes/user.routes"));
 const app = (0, express_1.default)();
 (0, bd_1.connectDB)();
 app.use((0, cors_1.default)(cors_2.corsConfig));
@@ -26,6 +27,7 @@ app.use(express_1.default.json());
 app.use("/tasks", tasks_routes_1.default);
 app.use("/auth/", auth_routes_1.default);
 app.use("/tags", tag_routes_1.default);
+app.use("/user", user_routes_1.default);
 app.use("/", (req, res) => {
     res.send("Server is running...");
     logger_1.default.info("server is running...");

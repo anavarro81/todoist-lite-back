@@ -82,3 +82,18 @@ export const googleOath = async (
     next(error);
   }
 };
+
+export const getUserInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    console.log("req.user ", req.user);
+    const { id } = req.user;
+    const userInfo = await AuthServices.getUserInfo(id);
+    res.status(200).json({ userInfo });
+  } catch (error) {
+    next(error);
+  }
+};

@@ -5,7 +5,7 @@ const userSchema = new Schema(
     photo: { type: String, required: false },
     name: {
       type: String,
-      required: false,
+      required: true,
       trim: true,
       minlength: 3,
       maxlength: 30,

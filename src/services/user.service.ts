@@ -46,7 +46,7 @@ export const login = async (payload: LoginPayload) => {
 
 export const register = async (payload: RegisterPayload) => {
   try {
-    const { email, password } = payload;
+    const { email, password, name } = payload;
 
     const existingUser = await userModel.find({ email: email });
 
@@ -60,7 +60,11 @@ export const register = async (payload: RegisterPayload) => {
 
     const hashedPassword = await hashPassword(password);
 
-    const user = await userModel.create({ email, password: hashedPassword });
+    const user = await userModel.create({
+      email,
+      name,
+      password: hashedPassword,
+    });
 
     const token = generateToken(String(user._id), user.email);
 
@@ -125,5 +129,22 @@ export const googleOAuth = async (googleToken: string) => {
     const message = error instanceof Error ? error.message : String(error);
     logger.error("Error en OAuth con Google", { error: message });
     throw AppError.unexpected("Error en autenticación con Google");
+  }
+};
+
+export const getUserInfo = async (id: string) => {
+  try {
+    
+    const user = await userModel.find({ _id: id });
+    
+    return user;
+  } catch (error) {
+    if (error instanceof AppError) {
+      throw error;
+    }
+
+    const message = error instanceof Error ? error.message : String(error);
+    logger.error(message);
+    throw AppError.unexpected("Error al obtener la información del usuario");
   }
 };

@@ -1,6 +1,7 @@
 import Joi from "joi";
 import {LoginPayload} from '../../types/LoginRegister'
 import {formatError, ValidationResult} from './formater'
+import { isJSDocSignature } from "typescript";
 
 
 const authSchema = Joi.object({
@@ -20,7 +21,17 @@ const authSchema = Joi.object({
     .messages({
         'string.pattern.base': '"password" debe de tener entre 6-8 caracteres',   
         'any.required': '"password" is required',
+    }),
+
+    name: Joi.string()
+    .min(3)
+    .messages({
+        'string.empty': 'El nombre es obligatorio',
+        'string.min': 'El nombre debe de tener al menos tres caracteres',
     })
+
+    
+
 })
 
 
