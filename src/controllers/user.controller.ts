@@ -89,7 +89,7 @@ export const getUserInfo = async (
   next: NextFunction,
 ) => {
   try {
-    console.log("req.user ", req.user);
+
     const { id } = req.user;
     const userInfo = await AuthServices.getUserInfo(id);
     res.status(200).json({ userInfo });
@@ -97,3 +97,19 @@ export const getUserInfo = async (
     next(error);
   }
 };
+
+export const getUserSummary = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+
+) => {
+  try {
+    const { id } = req.user;
+    const userInfo = await AuthServices.getUserInfo(id);
+    console.log(userInfo)
+    res.status(200).json({message: "Todo bien"})
+  } catch (error) {
+    
+  }
+}

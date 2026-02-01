@@ -134,9 +134,8 @@ export const googleOAuth = async (googleToken: string) => {
 
 export const getUserInfo = async (id: string) => {
   try {
-    
-    const user = await userModel.find({ _id: id });
-    
+    const user = await userModel.findById(id);
+
     return user;
   } catch (error) {
     if (error instanceof AppError) {
