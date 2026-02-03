@@ -2,12 +2,13 @@
   "name": "new-proyect-ts-template",
   "version": "1.0.0",
   "main": "dist/index.js",
+  
   "scripts": {
     "dev": "nodemon",
     "build": "rimraf dist && tsc",
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist",
-    "seed": "tsx ./src/seed/seed-task.ts",
+    "seed": "tsx ./src/seed/loadTask.ts",
     "reset-db": "tsx ./src/seed/reset-data-base.ts",
     "test": "jest"
   },

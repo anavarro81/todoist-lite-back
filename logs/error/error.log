@@ -60,3 +60,4 @@
 {"level":"error","message":"Cast to ObjectId failed for value \"Promise { <pending> }\" (type Promise) at path \"project\" for model \"Task\"","timestamp":"2026-02-01 22:49:15:4915"}
 {"level":"error","message":"Cast to ObjectId failed for value \"Promise { <pending> }\" (type Promise) at path \"project\" for model \"Task\"","timestamp":"2026-02-01 22:52:10:5210"}
 {"level":"error","message":"Cast to ObjectId failed for value \"Promise { <pending> }\" (type Promise) at path \"project\" for model \"Task\"","timestamp":"2026-02-01 22:53:18:5318"}
+{"level":"error","message":"No existe token; No autoriado","timestamp":"2026-02-02 17:31:14:3114"}
